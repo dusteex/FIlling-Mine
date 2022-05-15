@@ -17,13 +17,14 @@ public class Fog : MonoBehaviour
         GameEvents.OnCellDeleted.AddListener(position=>RemoveNeighborFogs(position.To2D()));
     }
 
-    public void TrySpawnFog(Vector3 position)
+    public FogCell TrySpawnFog(Vector3 position)
     {
         if(_cellsWithoutFogPositions.Contains(position.To2D()))
-            return;
-        FogCell newCell = Instantiate(_fogCellPrefab,position,Quaternion.identity);
-        newCell.transform.parent = transform;
-        _fogCells[position.To2D()] = newCell;
+            return null;
+        FogCell newFogCell = Instantiate(_fogCellPrefab,position,Quaternion.identity);
+        newFogCell.transform.parent = transform;
+        _fogCells[position.To2D()] = newFogCell;
+        return newFogCell;
     }
 
 

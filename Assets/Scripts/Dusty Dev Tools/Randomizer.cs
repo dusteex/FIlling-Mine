@@ -35,7 +35,7 @@ public class Randomizer
         return newCell;
     }
 
-    public static Object RandomObject( Object[] objects)
+    public static UnityEngine.Object RandomObject(UnityEngine.Object[] objects)
     {
         int randomNum = Random.Range(0,objects.Length);
         return objects[randomNum];

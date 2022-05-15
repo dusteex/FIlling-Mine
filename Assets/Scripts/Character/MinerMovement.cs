@@ -9,31 +9,43 @@ public class MinerMovement : CharacterMovement
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _minDistanceToCell;
 
-    private TargetFinder<Cell> _cellFinder;
+    private CellFinder _cellFinder;
     private Cell _targetCell;
     private Vector3 _direction;
     private bool _isMoving;
+    private bool _isFindingTarget;
 
 
     private void Awake()
     {
-        _cellFinder = new TargetFinder<Cell>(transform , _cellsLayer);
+        _cellFinder = new CellFinder(user:transform , _cellsLayer);
         FloorSpawner.OnLevelLoaded += SetTarget;
     }
-
 
 
     private void Update()
     {
         if(_targetCell && _isMoving)
             Move();
-
+        else if(_isMoving && !_isFindingTarget)
+        {
+            SetTarget();
+        }
     }
 
     public void SetTarget()
     {
-        _targetCell = _cellFinder.FindTarget();
+        _isFindingTarget = true;
+        int c = 0;
+        do {
+            _targetCell = _cellFinder.FindTarget(); 
+            c++;
+        } 
+        while(_targetCell == null && c < 30);
+
+
         _isMoving = true;
+        _isFindingTarget = false;
     }
 
     public override void Move()

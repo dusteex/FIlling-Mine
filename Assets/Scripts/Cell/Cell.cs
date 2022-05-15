@@ -5,24 +5,26 @@ using UnityEngine;
 
 public class Cell : MonoBehaviour , ITarget
 {
-
-
     private CellData _cellData;
     private SpriteRenderer _renderer;
     private Chunk _parentChunk;
+    private FogCell _connectedFog;
     private float _strength;
+
+    public bool HasFog => _connectedFog != null; 
 
     private void Awake()
     {
         _renderer = GetComponent<SpriteRenderer>();
     }
 
-    public void Init(CellData cellData , Chunk parentChunk)
+    public void Init(CellData cellData , Chunk parentChunk , FogCell connectedFog = null)
     {
         this._cellData = cellData;
         this._parentChunk = parentChunk;
         _renderer.sprite = cellData.Sprite;
         this._strength = cellData.Hardness;
+        this._connectedFog = connectedFog;
         gameObject.name = $"Cell : {transform.position}";
     }
 
@@ -36,6 +38,7 @@ public class Cell : MonoBehaviour , ITarget
         }
         return false;
     }
+
 
     private void Death()
     {

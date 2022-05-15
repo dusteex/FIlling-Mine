@@ -3,7 +3,7 @@
 using UnityEngine;
 
 
-public class Miner : Character
+public class GameObject : Character
 {
 
 }

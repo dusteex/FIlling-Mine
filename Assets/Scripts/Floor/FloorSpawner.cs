@@ -7,14 +7,14 @@ public class FloorSpawner : MonoBehaviour
 
     [Header("Prefabs")]
     [SerializeField] private Cell _cellPrefab;
-    [SerializeField] private GameObject _groundPrefab;
+    [SerializeField] private UnityEngine.GameObject _groundPrefab;
     [Header("References")]
     [SerializeField] private Fog _fog;
     private Transform _chunksContainer;
 
     public void SpawnChunks(Chunk[,] chunks)
     {
-        Transform _chunksContainer = new GameObject().transform;
+        Transform _chunksContainer = new UnityEngine.GameObject().transform;
         _chunksContainer.name = "Chunks";
 
         SpawnGround(chunks.GetLength(1)*Chunk.CHUNK_WIDTH);
@@ -47,8 +47,8 @@ public class FloorSpawner : MonoBehaviour
     private Cell SpawnCell(CellData cellData , Vector3 position , Chunk parentChunk)
     {
         Cell newCell = Instantiate(_cellPrefab,position,Quaternion.identity);
-        _fog.TrySpawnFog(position);
-        newCell.Init(cellData,parentChunk);
+        FogCell newFogCell = _fog.TrySpawnFog(position);
+        newCell.Init(cellData,parentChunk,newFogCell);
         return newCell;
     }
     

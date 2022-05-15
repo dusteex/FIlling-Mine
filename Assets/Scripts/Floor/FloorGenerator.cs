@@ -32,7 +32,7 @@ public class FloorGenerator : MonoBehaviour
 
     private Chunk GenerateChunk(Vector3 leftBottomCellPosition)
     {
-        Transform chunkContainer = new GameObject().transform;
+        Transform chunkContainer = new UnityEngine.GameObject().transform;
         Chunk newChunk = new Chunk(leftBottomCellPosition,chunkContainer);
         Randomizer _rand = new Randomizer(_cellsData);
         int cellsCount = 0;

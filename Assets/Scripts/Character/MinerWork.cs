@@ -25,6 +25,7 @@ public class MinerWork : CharacterWork
     {
         if(_targetCell == null)
         {
+            StopAllCoroutines();
             OnEndWorking?.Invoke();
             return;
         }
